@@ -10,14 +10,14 @@ resource "azuread_group" "admin_entraid_group" {
   security_enabled = true
 }
 
-resource "azurerm_resource_group" "astralbound_prerequisites" {
+resource "azurerm_resource_group" "astralbound_bootstraps" {
   name     = var.resource_group_name
   location = var.location
 }
 
-resource "azurerm_storage_account" "prerequisitesstorageacc" {
+resource "azurerm_storage_account" "bootstrapsstorageacc" {
   name                     = var.backend_storge_account_name
-  resource_group_name      = azurerm_resource_group.astralbound_prerequisites.name
+  resource_group_name      = azurerm_resource_group.astralbound_bootstraps.name
   account_replication_type = "LRS"
   account_tier             = "Standard"
   location                 = var.location
@@ -25,7 +25,7 @@ resource "azurerm_storage_account" "prerequisitesstorageacc" {
 
 resource "azurerm_storage_container" "astralbound_tf_state" {
   name                  = var.backend_storge_container_name
-  storage_account_id    = azurerm_storage_account.prerequisitesstorageacc.id
+  storage_account_id    = azurerm_storage_account.bootstrapsstorageacc.id
   container_access_type = "private"
 }
 

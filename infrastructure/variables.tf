@@ -5,7 +5,7 @@ variable "subscription_id" {
 
 
 variable "location" {
-  description = "Location for prerequisite resources"
+  description = "Location for bootstrap resources"
   type        = string
 }
 

@@ -35,12 +35,12 @@ variable "default_audience_name" {
 }
 
 variable "resource_group_name" {
-  description = "Resource group name for prerequisite resources"
+  description = "Resource group name for bootstrap resources"
   type        = string
 }
 
 variable "location" {
-  description = "Location for prerequisite resources"
+  description = "Location for bootstrap resources"
   type        = string
 }
 
