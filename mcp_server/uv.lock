@@ -760,7 +760,7 @@ wheels = [
 ]
 
 [[package]]
-name = "project-astralbound"
+name = "genai-rag-mcp-server"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [

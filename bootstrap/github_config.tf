@@ -20,7 +20,7 @@ resource "github_actions_secret" "tenant_id_secret" {
 resource "github_actions_secret" "backend_resource_group_secret" {
   repository      = var.repository_name
   secret_name     = "BACKEND_RESOURCE_GROUP_NAME"
-  plaintext_value = azurerm_resource_group.astralbound_bootstraps.name
+  plaintext_value = azurerm_resource_group.bootstrap.name
 }
 
 resource "github_actions_secret" "backend_storage_account_secret" {
@@ -32,5 +32,5 @@ resource "github_actions_secret" "backend_storage_account_secret" {
 resource "github_actions_secret" "backend_storage_account_container_secret" {
   repository      = var.repository_name
   secret_name     = "BACKEND_STORAGE_ACCOUNT_CONTAINER_NAME"
-  plaintext_value = azurerm_storage_container.astralbound_tf_state.name
+  plaintext_value = azurerm_storage_container.terraform_state.name
 }

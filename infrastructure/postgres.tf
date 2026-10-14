@@ -5,11 +5,11 @@ resource "random_string" "postgres_password" {
 resource "azurerm_key_vault_secret" "kv_secret_postgres_password" {
   name         = "postgres-password"
   value        = random_string.postgres_password.result
-  key_vault_id = azurerm_key_vault.astralbound_key_vault.id
+  key_vault_id = azurerm_key_vault.platform.id
 }
 
-resource "azurerm_postgresql_flexible_server" "astralbound_postgres" {
-  name                          = "astralbound-postgres"
+resource "azurerm_postgresql_flexible_server" "platform" {
+  name                          = "genai-rag-postgres"
   resource_group_name           = azurerm_resource_group.infrastructure_rg.name
   location                      = var.location
   version                       = "17"

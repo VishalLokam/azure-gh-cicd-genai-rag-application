@@ -1,4 +1,6 @@
 terraform {
+  required_version = ">= 1.10.0"
+
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -26,5 +28,5 @@ provider "azuread" {
 
 provider "github" {
   token = var.github_token
-  owner = var.organisation_name
+  owner = var.github_owner
 }

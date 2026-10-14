@@ -18,7 +18,8 @@ crash.*.log
 # control as they are data points which are potentially sensitive and subject
 # to change depending on the environment.
 *.tfvars
-# *.tfvars.json
+*.tfvars.json
+!environment/dev.tfvars.json
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not checked in
@@ -33,8 +34,11 @@ override.tf.json
 # Include override files you do wish to add to version control using negated pattern
 # !example_override.tf
 
-# Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
-# example: *tfplan*
+# Saved Terraform plans and their exports can contain credentials and state.
+*.tfplan
+*.tfplan.*
+tfplan
+tfplan.*
 
 # Ignore CLI configuration files
 .terraformrc
@@ -43,4 +47,5 @@ terraform.rc
 Azure_Public_Service_Icons_V20/
 .venv/
 .env
+.env.*
 .vscode

@@ -1,12 +1,11 @@
-.PHONY: bootstrap
+.PHONY: bootstrap bootstrap-destroy
 
 
 bootstrap:
-	cd ./bootstrap && terraform init && terraform plan -out="bootstrap.tfplan"
-	cd ./bootstrap && terraform apply -auto-approve "bootstrap.tfplan" 
+	@set -eu; set -a; . ./.env; set +a; cd ./bootstrap && terraform init && terraform plan && terraform apply -auto-approve
 
 
 bootstrap-destroy:
-	cd ./bootstrap && terraform init && terraform destroy -auto-approve
+	@set -eu; set -a; . ./.env; set +a; cd ./bootstrap && terraform init && terraform destroy -auto-approve
 
 

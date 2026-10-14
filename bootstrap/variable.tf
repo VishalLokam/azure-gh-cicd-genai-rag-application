@@ -4,13 +4,14 @@ variable "subscription_id" {
 }
 
 variable "github_token" {
-  description = "Github Personal Access token(classic)"
+  description = "GitHub personal access token with permission to manage Actions secrets in the repository"
   type        = string
   sensitive   = true
+  ephemeral   = true
 }
 
-variable "organisation_name" {
-  description = "Name of the organisation that the github repository is part of"
+variable "github_owner" {
+  description = "GitHub username that owns the personal repository"
   type        = string
 }
 
@@ -44,12 +45,17 @@ variable "location" {
   type        = string
 }
 
-variable "backend_storge_account_name" {
-  description = "Storage account for remote backend"
+variable "backend_storage_account_name" {
+  description = "Globally unique storage account name for the remote backend (3-24 lowercase letters or numbers)"
   type        = string
+
+  validation {
+    condition     = can(regex("^[a-z0-9]{3,24}$", var.backend_storage_account_name))
+    error_message = "backend_storage_account_name must contain 3-24 lowercase letters or numbers."
+  }
 }
 
-variable "backend_storge_container_name" {
+variable "backend_storage_container_name" {
   description = "Storage container for remote backend"
   type        = string
 }

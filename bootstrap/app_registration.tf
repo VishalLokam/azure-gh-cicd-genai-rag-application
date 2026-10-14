@@ -3,36 +3,44 @@ data "azurerm_subscription" "primary" {
 
 resource "azuread_application" "github_oidc" {
   display_name = var.application_display_name
+  owners       = [data.azurerm_client_config.current.object_id]
 }
 
 resource "azuread_service_principal" "github_oidc_sp" {
   client_id = azuread_application.github_oidc.client_id
+  owners    = [data.azurerm_client_config.current.object_id]
 }
 
 resource "azurerm_role_assignment" "github_oidc_contributor_role_assignment" {
-  scope                = data.azurerm_subscription.primary.id
-  role_definition_name = "Contributor"
-  principal_id         = azuread_service_principal.github_oidc_sp.object_id
+  scope                            = data.azurerm_subscription.primary.id
+  role_definition_name             = "Contributor"
+  principal_id                     = azuread_service_principal.github_oidc_sp.object_id
+  principal_type                   = "ServicePrincipal"
+  skip_service_principal_aad_check = true
 }
 
 resource "azurerm_role_assignment" "github_oidc_useraccess_role_assignment" {
-  scope                = data.azurerm_subscription.primary.id
-  role_definition_name = "User Access Administrator"
-  principal_id         = azuread_service_principal.github_oidc_sp.object_id
+  scope                            = data.azurerm_subscription.primary.id
+  role_definition_name             = "User Access Administrator"
+  principal_id                     = azuread_service_principal.github_oidc_sp.object_id
+  principal_type                   = "ServicePrincipal"
+  skip_service_principal_aad_check = true
 }
 
 resource "azurerm_role_assignment" "github_oidc_kv_user_role_assignment" {
-  scope                = data.azurerm_subscription.primary.id
-  role_definition_name = "Key Vault Secrets Officer"
-  principal_id         = azuread_service_principal.github_oidc_sp.object_id
+  scope                            = data.azurerm_subscription.primary.id
+  role_definition_name             = "Key Vault Secrets Officer"
+  principal_id                     = azuread_service_principal.github_oidc_sp.object_id
+  principal_type                   = "ServicePrincipal"
+  skip_service_principal_aad_check = true
 }
 
 resource "azuread_application_federated_identity_credential" "github_oidc_creds_main" {
   application_id = azuread_application.github_oidc.id
-  display_name   = "${var.organisation_name}-${var.repository_name}-oidc-main"
+  display_name   = "${var.github_owner}-${var.repository_name}-oidc-main"
   issuer         = var.github_issuer
   audiences      = ["${var.default_audience_name}"]
-  subject        = "repo:${var.organisation_name}/${var.repository_name}:ref:refs/heads/main"
+  subject        = "repo:${var.github_owner}/${var.repository_name}:ref:refs/heads/main"
 }
 
 

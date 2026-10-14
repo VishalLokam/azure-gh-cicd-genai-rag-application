@@ -1,4 +1,4 @@
-resource "azurerm_key_vault" "astralbound_key_vault" {
+resource "azurerm_key_vault" "platform" {
   name                       = var.key_vault_name
   resource_group_name        = azurerm_resource_group.infrastructure_rg.name
   location                   = var.location
@@ -9,7 +9,7 @@ resource "azurerm_key_vault" "astralbound_key_vault" {
 }
 
 resource "azurerm_key_vault_access_policy" "kv_oidc_access_poicy" {
-  key_vault_id = azurerm_key_vault.astralbound_key_vault.id
+  key_vault_id = azurerm_key_vault.platform.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = data.azurerm_client_config.current.object_id
 
@@ -36,7 +36,7 @@ resource "azurerm_key_vault_access_policy" "kv_oidc_access_poicy" {
 }
 
 resource "azurerm_key_vault_access_policy" "kv_user_access_poicy" {
-  key_vault_id = azurerm_key_vault.astralbound_key_vault.id
+  key_vault_id = azurerm_key_vault.platform.id
   tenant_id    = data.azurerm_client_config.current.tenant_id
   object_id    = "33bbf20f-9bb6-4c40-9d22-c42eac9f1d9b"
 
@@ -64,6 +64,6 @@ resource "azurerm_key_vault_access_policy" "kv_user_access_poicy" {
 
 resource "azurerm_role_assignment" "kv_oidc_role_assignment" {
   principal_id         = data.azurerm_client_config.current.object_id
-  scope                = azurerm_key_vault.astralbound_key_vault.id
+  scope                = azurerm_key_vault.platform.id
   role_definition_name = "Key Vault Secrets User"
 }
