@@ -40,7 +40,8 @@ resource "azuread_application_federated_identity_credential" "github_oidc_creds_
   display_name   = "${var.github_owner}-${var.repository_name}-oidc-main"
   issuer         = var.github_issuer
   audiences      = ["${var.default_audience_name}"]
-  subject        = "repo:${var.github_owner}/${var.repository_name}:ref:refs/heads/main"
+  # TODO: Org id and Repo id are required now to establish an oidc connection between Azure and GitHub 
+  subject = "repo:${var.github_owner}/${var.repository_name}:ref:refs/heads/main"
 }
 
 
