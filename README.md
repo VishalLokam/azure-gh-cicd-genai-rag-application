@@ -1,8 +1,4 @@
-# azure-gh-cicd-genai-rag-application
-
-## [WIP]Architecture Diagram
-
-![Architecture Diagram](/architecture_diagram.png)
+# [WIP]azure-gh-cicd-genai-rag-application
 
 ## Terraform bootstrap and CI/CD
 
